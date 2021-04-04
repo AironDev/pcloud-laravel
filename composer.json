@@ -5,10 +5,10 @@
 
 	"autoload": {
 		"files": [
-              "lib/pCloud/autoload.php"
+              "src/pCloud/autoload.php"
             ],
 		"psr-4": {
-			"Airondev\\pCloud\\": "lib/pCloud"
+			"Airondev\\pCloud\\": "src/pCloud"
 		}
 	},
 
@@ -19,5 +19,13 @@
 
 	"require-dev": {
 		"phpunit/phpunit": "5.6"
+	},
+
+	"extra": {
+	    "laravel": {
+	        "providers": [
+	            "Airondev\\pCloud\\pCloudServiceProvider"
+	        ]
+	    }
 	}
 }
