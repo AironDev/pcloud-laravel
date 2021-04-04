@@ -9,7 +9,14 @@ class Auth {
 			throw new Exception("Couldn't find credential file");			
 		}
 
-		$file = file_get_contents($credentialPath);
+		//  airon using config file located in app/config here
+		$conFile = config_path('airondev-pcloud.cred');
+
+		if (!file_exists($conFile)) {
+			throw new Exception("Couldn't find config file");			
+		}
+
+		$file = file_get_contents($conFile);
 		$credential = json_decode($file, true);
 
 		if (!isset($credential["access_token"]) || empty($credential["access_token"])) {

@@ -16,7 +16,7 @@ class pCloudServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/app.cred' => config_path('app.cred'),
+            __DIR__.'/app.cred' => config_path('airondev-pcloud.cred'),
         ]);
     }
 
