@@ -52,6 +52,24 @@ class Folder {
 		return is_object($response) ? $response->metadata->folderid : $response;
 	}
 
+
+	// create folder if not exist
+	public function createIfNotExists($name = "", $parent = 0) {
+		if (!is_string($name) || strlen($name) < 1) {
+			throw new InvalidArgumentException("Invalid folder name");
+		}
+
+		$params = array(
+			"name" => $name,
+			"folderid" => $parent
+		);
+
+		$response = $this->request->get("createfolderifnotexists", $params);
+
+		return is_object($response) ? $response->metadata->folderid : $response;
+	}
+
+
 	public function rename($folderId, $name) {
 		if (!is_int($folderId)) {
 			throw new InvalidArgumentException("Invalid folder id");

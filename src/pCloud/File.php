@@ -15,9 +15,9 @@ class File {
 	}
 
 	public function getLink($fileId) {
-		if (!is_int($fileId)) {
-			throw new InvalidArgumentException("Invalid file id");
-		}
+		// if (!is_int($fileId)) {
+		// 	throw new InvalidArgumentException("Invalid file id");
+		// }
 
 		$params = array(
 			"fileid" => $fileId
@@ -178,5 +178,28 @@ class File {
 		);
 
 		return $this->request->get("checksumfile", $params);
+	}
+
+
+// airon
+
+	public function getFileProperties($fileId) {
+		if (!is_int($fileId)) {
+			throw new InvalidArgumentException("Invalid file id");
+		}
+
+		$params = array(
+			"fileid" => $fileId
+		);
+
+		return $this->request->get("stat", $params);
+	}
+
+	public function listFolder($fileId) {
+		$params = array(
+			"path" => $fileId
+		);
+
+		return $this->request->get("listfolder", $params);
 	}
 }
