@@ -15,9 +15,9 @@ class File {
 	}
 
 	public function getLink($fileId) {
-		// if (!is_int($fileId)) {
-		// 	throw new InvalidArgumentException("Invalid file id");
-		// }
+		if (!is_int($fileId)) {
+			throw new InvalidArgumentException("Invalid file id");
+		}
 
 		$params = array(
 			"fileid" => $fileId
@@ -26,6 +26,22 @@ class File {
 		$response = $this->request->get("getfilelink", $params);
 
 		return is_object($response) ? "https://".$response->hosts[0].$response->path : $response;
+	}
+
+	public function getPublicLink($fileId) {
+		if (!is_int($fileId)) {
+			throw new InvalidArgumentException("Invalid file id");
+		}
+
+		$params = array(
+			"fileid" => $fileId
+		);
+
+		$response = $this->request->get("getfilepublink", $params);
+		$linkCode = is_object($response) ? $response->code : $response;
+
+		$publicLink = $this->request->get("getpublinkdownload", ['code' => $linkCode, 'fileid' => $fileId ]);
+		return is_object($publicLink) ? "https://".$publicLink->hosts[0].$publicLink->path : $publicLink;
 	}
 
 	public function download($fileId, $destination = "") {
